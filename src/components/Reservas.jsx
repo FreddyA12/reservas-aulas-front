@@ -95,6 +95,7 @@ const LabReservations = () => {
   useEffect(() => {
     updateWeekRange();
   }, [currentWeek]);
+
   useEffect(() => {
     getFeriados();
   }, []);
@@ -105,7 +106,7 @@ const LabReservations = () => {
       const response = await api.get(url);
       setFeriados(response.data);
     } catch (error) {
-      setFeriados([]); // Limpia los datos si la petición falla
+      setFeriados([]);
     }
   };
 
@@ -144,44 +145,46 @@ const LabReservations = () => {
       setBloques(resp.data);
     } catch (error) {
       const { message } = error.response.data;
-      console.log(message);
+      oops(message);
     }
   };
 
   const fetchAulasLabs = async () => {
-    const url = `espacio/bloque/${selectedBloque}`;
+    if (selectedBloque) {
+      const url = `espacio/bloque/${selectedBloque}`;
 
-    try {
-      const response = await api.get(url);
-      let filteredData = [];
-      if (selectedTipo == "Aula") {
-        filteredData = response.data.filter(item => item.tipo === "Aula");
-      } else if (selectedTipo == "Laboratorio") {
-        filteredData = response.data.filter(
-          item => item.tipo === "Laboratorio"
-        );
-      } else if (selectedTipo == "Especial") {
-        filteredData = response.data.filter(item => item.tipo === "Especial");
-      }
-      setAulasLabs(filteredData);
-      if (filteredData.length === 0) {
+      try {
+        const response = await api.get(url);
+        let filteredData = [];
+        if (selectedTipo == "Aula") {
+          filteredData = response.data.filter(item => item.tipo === "Aula");
+        } else if (selectedTipo == "Laboratorio") {
+          filteredData = response.data.filter(
+            item => item.tipo === "Laboratorio"
+          );
+        } else if (selectedTipo == "Especial") {
+          filteredData = response.data.filter(item => item.tipo === "Especial");
+        }
+        setAulasLabs(filteredData);
+        if (filteredData.length === 0) {
+          setNoHorariosMessage(
+            "No hay espacios disponibles para esta selección."
+          );
+        } else {
+          setNoHorariosMessage("");
+        }
+      } catch (error) {
+        const { message } = error.response.data;
+        if (message === "No hay espacios en este bloque") {
+          oops(message);
+        } else {
+          oops("Error al conectar con el servidor");
+        }
+        setAulasLabs([]); // Limpia los datos si la petición falla
         setNoHorariosMessage(
-          "No hay espacios disponibles para esta selección."
+          "No hay aulas, laboratorios o espacios especiales disponibles."
         );
-      } else {
-        setNoHorariosMessage("");
       }
-    } catch (error) {
-      const { message } = error.response.data;
-      if (message === "No hay espacios en este bloque") {
-        oops(message);
-      } else {
-        oops("Error al conectar con el servidor");
-      }
-      setAulasLabs([]); // Limpia los datos si la petición falla
-      setNoHorariosMessage(
-        "No hay aulas, laboratorios o espacios especiales disponibles."
-      );
     }
   };
 
