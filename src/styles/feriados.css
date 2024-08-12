@@ -1,0 +1,43 @@
+.p-calendar {
+  height: 33px;
+
+  .p-button {
+    background: #8b0000;
+    border: #8b0000;
+    border-end-end-radius: 4px;
+    border-start-end-radius: 4px;
+  }
+
+  .p-inputtext {
+    width: 125px;
+  }
+}
+
+.p-datepicker {
+  z-index: 9999 !important;
+
+  thead {
+    background-color: inherit;
+    color: inherit;
+  }
+
+  tr:nth-child(odd) {
+    background-color: inherit;
+  }
+
+  tr:nth-child(even) {
+    background-color: inherit;
+  }
+
+  th {
+    text-align: center;
+  }
+
+  table {
+    cursor: inherit;
+  }
+
+  button:hover {
+    color: #8b0000;
+  }
+}

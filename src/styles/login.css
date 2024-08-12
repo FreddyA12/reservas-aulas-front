@@ -1,0 +1,96 @@
+body,
+html,
+.app-container {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.container-fluid {
+  height: 100%;
+  display: flex;
+}
+
+.login-container {
+  background-color: white;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.login-form {
+  width: 400px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+.login-form img {
+  width: 400px;
+  height: auto;
+  margin-bottom: 50px;
+}
+
+.login-form h1 {
+  font-size: 2em;
+  margin-bottom: 40px;
+  font-weight: bold;
+}
+
+.login-form .form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.login-form .form-control {
+  border: 1px solid #8b0000;
+  border-radius: 5px;
+  height: 50px;
+  font-size: 1.2em;
+}
+
+.login-form .btn {
+  background-color: #8b0000;
+  color: white;
+  width: 100%;
+  padding: 15px;
+  border-radius: 5px;
+  border: none;
+  font-size: 1.2em;
+  margin-top: 20px;
+}
+
+.login-form .btn:hover {
+  background-color: #a52a2a;
+}
+
+.right-panel {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: left;
+  flex-direction: column;
+  padding: 20px;
+  background: linear-gradient(90deg, #6d1010, #743629, #6d1010),
+    url("/src/img/estudiante.jpg");
+  background-size: cover;
+  background-blend-mode: multiply;
+}
+
+.right-panel h1 {
+  font-size: 3em;
+  margin-bottom: 40px;
+  margin-top: 100px;
+}
+
+.right-panel p {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+  font-weight: lighter;
+}

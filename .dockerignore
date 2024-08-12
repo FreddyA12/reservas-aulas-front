@@ -1,0 +1,27 @@
+# Ignorar node_modules ya que será instalado en el contenedor
+node_modules
+npm-debug.log
+
+# Ignorar archivos de configuración de desarrollo
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Ignorar archivos de compilación local
+build
+dist
+
+# Ignorar archivos de log
+*.log
+
+# Ignorar directorios del sistema
+.DS_Store
+*.swp
+
+# Ignorar archivos de configuración de la IDE/editor
+.idea
+.vscode
+*.sublime-project
+*.sublime-workspace

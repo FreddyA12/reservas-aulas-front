@@ -1,0 +1,150 @@
+body,
+html,
+#root,
+.app-container {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.header {
+  background-color: #8b0000;
+  color: white;
+  text-align: center;
+  padding: 10px 20px;
+  margin-bottom: 30px;
+}
+
+.btn-custom {
+  background-color: #8b0000;
+  color: white;
+  border: none;
+}
+
+.btn-custom:hover {
+  background-color: #a52a2a;
+}
+
+.form-group label {
+  font-weight: bold;
+}
+
+.table thead th {
+  background-color: #4c4a4a;
+  color: white;
+}
+
+.table tbody td {
+  cursor: pointer;
+}
+
+.table tbody td.selected {
+  background-color: #d4d4d4;
+}
+
+.context-menu {
+  display: none;
+  position: absolute;
+  background-color: #641515;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  color: white;
+}
+
+.context-menu button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: none;
+  text-align: left;
+  color: #641515;
+}
+
+.context-menu button:hover {
+  background-color: #a52a2a;
+}
+
+.form-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.horario {
+  .form-container {
+    .form-group {
+      flex: 1 1 30%;
+      min-width: 200px;
+      margin-bottom: auto;
+    }
+  }
+}
+
+.nuevo-horario {
+  text-align: center;
+  font-weight: bold;
+}
+
+.docente-container {
+  display: flex;
+  align-items: center;
+}
+
+.docente-container input {
+  flex: 1;
+  max-width: 300px;
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+.docente-container button {
+  margin-left: 10px;
+}
+.modal-body .form-group {
+  margin-bottom: 1rem;
+}
+
+.modal-body .form-group label {
+  font-weight: bold;
+}
+
+.modal-body .form-group .form-control {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.modal-body .form-group .btn-custom {
+  margin-top: 0.5rem;
+  width: 100px;
+}
+.selected {
+  background-color: #d4d4d4 !important;
+}
+
+.table-centered td,
+.table-centered th {
+  text-align: center;
+  vertical-align: middle;
+}
+#agregar-btn,
+#guardar-btn {
+  margin-top: 0px;
+}
+.mt-2 {
+  margin-left: 10px;
+}
+
+.fixed-width-select .react-select__control {
+  width: 230px; /* Ajusta este valor según sea necesario */
+}
+
+.table td,
+.table th {
+  width: 150px; /* Ajusta este valor según sea necesario */
+  height: 50px; /* Ajusta este valor según sea necesario */
+  word-wrap: break-word;
+  text-align: center; /* Centrar el contenido horizontalmente */
+  vertical-align: middle; /* Centrar el contenido verticalmente */
+}

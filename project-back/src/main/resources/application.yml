@@ -1,9 +1,0 @@
-spring:
-  datasource:
-    url: jdbc:mysql://34.174.88.52:3306/gestor-reservas
-    username: root
-    password: root
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  jpa:
-    hibernate:
-      ddl-auto: update
