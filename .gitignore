@@ -1,96 +1,13 @@
-node_module
-build
+# Node modules
+node_modules/
+
+# Build output
+dist/
+
+# VS Code settings
+.vscode/
+
+# Logs
+*.log
+
 package-lock.json
-node2
-
-# Node.js dependencies for frontend
-.gradle/
-/project-front/node_modules/
-
-# Build output for frontend
-/project-front/build/
-/project-front/dist/
-
-# Gradle specific files
-/project-back/.gradle/
-/project-back/build/
-/project-back/out/
-
-# Spring Boot specific files
-/project-back/target/
-/project-back/out/
-
-# IntelliJ IDEA
-.idea/
-/project-back/.idea/
-/project-front/.idea/
-/project-back/*.iws
-/project-back/*.iml
-/project-back/*.ipr
-/project-front/*.iws
-/project-front/*.iml
-/project-front/*.ipr
-
-# NetBeans
-build
-/project-back/nbproject/private/
-/project-back/nbbuild/
-/project-back/dist/
-/project-back/nbdist/
-/project-back/.nb-gradle/
-/project-back/.DS_Store
-
-/project-front/nbproject/private/
-/project-front/build/
-/project-front/nbbuild/
-/project-front/dist/
-/project-front/nbdist/
-/project-front/.nb-gradle/
-/project-front/.DS_Store
-/project-front/node_modules
-
-# VSCode
-/project-back/.vscode/
-/project-front/.vscode/
-
-# MacOS
-.DS_Store
-
-# Windows
-Thumbs.db
-ehthumbs.db
-Desktop.ini
-
-# Eclipse
-/project-back/.project
-/project-back/.classpath
-/project-back/.c9/
-/project-back/*.launch
-/project-back/.settings/
-/project-back/bin/
-/project-back/tmp/
-
-/project-front/.project
-/project-front/.classpath
-/project-front/.c9/
-/project-front/*.launch
-/project-front/.settings/
-/project-front/bin/
-/project-front/tmp/
-
-# User-specific files
-*.swp
-*.swo
-*.swn
-
-# Environment variable files
-.env
-.env.local
-.env.*.local
-.envrc
-
-# miscellaneous
-.DS_Store
-*.pem
-*.key
-*.crt
