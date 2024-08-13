@@ -4,6 +4,7 @@ import api from "../utils/api";
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import { ok, oops, deleteConfirmation, info } from "../utils/swal-alerts";
+import { validarCedula } from "../utils/validaciones";
 
 const LabReservations = () => {
   const [currentWeek, setCurrentWeek] = useState(0);
@@ -23,6 +24,8 @@ const LabReservations = () => {
     fecha: "",
     tipo: "",
     editable: false,
+    telefono: "",
+    cedula: "",
     id: null,
   });
   const [newReservation, setNewReservation] = useState({
@@ -110,7 +113,7 @@ const LabReservations = () => {
     }
   };
 
-  //TRAE LOS HORARIOS Y LAS RESERVAS
+  // TRAE LOS HORARIOS Y LAS RESERVAS
   const getHorarios = async () => {
     let url;
     if (selectedTipo === "Laboratorio") {
@@ -138,7 +141,6 @@ const LabReservations = () => {
     }
   };
 
-  //carga
   const getBloques = async () => {
     try {
       const resp = await api.get("bloque");
@@ -152,7 +154,6 @@ const LabReservations = () => {
   const fetchAulasLabs = async () => {
     if (selectedBloque) {
       const url = `espacio/bloque/${selectedBloque}`;
-
       try {
         const response = await api.get(url);
         let filteredData = [];
@@ -190,9 +191,7 @@ const LabReservations = () => {
 
   const handleCedulaChange = event => {
     const value = event.target.value;
-    if (/^\d*$/.test(value) && value.length <= 10) {
-      setResponsible(prev => ({ ...prev, cedula: value }));
-    }
+    setResponsible(prev => ({ ...prev, cedula: value }));
   };
 
   const handleBloqueChange = event => {
@@ -267,7 +266,8 @@ const LabReservations = () => {
           style={{ backgroundColor: "#ffcccc", cursor: "pointer" }}
           onClick={e => handleCellClick(e, dia, hora)}
         >
-          Reservado - {reserva.asunto}
+          Reservado -{" "}
+          <span style={{ fontWeight: "bold" }}>{reserva.asunto}</span>
         </td>
       );
     }
@@ -418,6 +418,8 @@ const LabReservations = () => {
         tipo: reserva.persona.tipo || "N/A",
         editable: false,
         id: reserva.id,
+        cedula: reserva.persona.cedula,
+        telefono: reserva.persona.telefono,
       });
 
       if (isPastReservation) {
@@ -578,7 +580,7 @@ const LabReservations = () => {
       !responsible.telefono ||
       !responsible.tipo
     ) {
-      oops("Existe algún campo vacío o no has buscado un responsable.");
+      info("Existe algún campo vacío o no has buscado un responsable.");
       return;
     }
 
@@ -662,11 +664,6 @@ const LabReservations = () => {
       if (/^\d*$/.test(value)) {
         setResponsible(prev => ({ ...prev, [name]: value }));
       }
-    } else if (name === "nombre" || name === "apellido") {
-      // Validar que solo contenga letras y espacios
-      if (/^[a-zA-Z\s]*$/.test(value)) {
-        setResponsible(prev => ({ ...prev, [name]: value }));
-      }
     } else {
       setResponsible(prev => ({ ...prev, [name]: value }));
     }
@@ -674,6 +671,10 @@ const LabReservations = () => {
 
   //BUSCAR  EL RESPONSABLE PARA EL MODAL DE AGREGAR RESERVA
   const searchResponsible = async () => {
+    if (!validarCedula(responsible.cedula)) {
+      info("Ingrese una cédula válida");
+      return;
+    }
     try {
       const response = await api.get(`persona/${responsible.cedula}`);
       setResponsible(response.data);
@@ -885,6 +886,32 @@ const LabReservations = () => {
                     className="form-control"
                     id="tipo"
                     value={reservationDetails.tipo}
+                    disabled
+                  />
+                </div>
+              </div>
+              <div className="row mt-3 mb-2">
+                <div className="col-md-6">
+                  <label htmlFor="encargado" className="form-label">
+                    Cédula
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="encargado"
+                    value={reservationDetails.cedula}
+                    disabled
+                  />
+                </div>
+                <div className="col-md-6">
+                  <label htmlFor="tipo" className="form-label">
+                    Teléfono
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="tipo"
+                    value={reservationDetails.telefono}
                     disabled
                   />
                 </div>
