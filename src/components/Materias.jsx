@@ -7,13 +7,15 @@ import { ok, oops, deleteConfirmation } from "../utils/swal-alerts";
 import materiaService from "../services/materias.service";
 
 const Materias = () => {
+  const defaultFormData = { id: "", nombre: "", carrera: "", curso: "" };
   const [selectedRow, setSelectedRow] = useState(null);
   const [showContextMenu, setShowContextMenu] = useState(false);
   const [materias, setMaterias] = useState([]);
-  const [formData, setFormData] = useState({ id: "", nombre: "", carrera: "" });
+  const [formData, setFormData] = useState(defaultFormData);
   const [isEditing, setIsEditing] = useState(false);
   const [filtroNombre, setFiltroNombre] = useState("");
   const [filtroCarrera, setFiltroCarrera] = useState("");
+  const [filtroCurso, setFiltroCurso] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [contextMenuPosition, setContextMenuPosition] = useState({
     top: 0,
@@ -49,12 +51,13 @@ const Materias = () => {
 
   useEffect(() => {
     getMaterias();
-  }, [filtroNombre, filtroCarrera]);
+  }, [filtroNombre, filtroCarrera, filtroCurso]);
 
   const getMaterias = async () => {
     const params = {
       nombre: filtroNombre ? filtroNombre : undefined,
       carrera: filtroCarrera ? filtroCarrera : undefined,
+      curso: filtroCurso ? filtroCurso : undefined,
     };
     await materiaService
       .getMateriasWithParams(params)
@@ -74,13 +77,14 @@ const Materias = () => {
     const materia = {
       nombre: formData.nombre,
       carrera: selectedCarrera,
+      curso: formData.curso,
     };
 
     await materiaService
       .guardarMateria(materia)
       .then(() => {
         getMaterias();
-        setFormData({ id: "", nombre: "", carrera: "" });
+        setFormData(defaultFormData);
         setSelectedCarrera("");
         ok("Registro guardado exitosamente.");
       })
@@ -94,10 +98,12 @@ const Materias = () => {
       carreraRef.current.focus();
       return;
     }
+
     const materia = {
       id: formData.id,
       nombre: formData.nombre,
       carrera: selectedCarrera,
+      curso: formData.curso,
     };
 
     await materiaService
@@ -105,8 +111,7 @@ const Materias = () => {
       .then(() => {
         getMaterias();
         setIsEditing(false);
-        setFormData({ id: "", nombre: "", carrera: "" });
-        setSelectedCarrera("");
+        setFormData(defaultFormData);
         ok("Registro actualizado exitosamente.");
       })
       .catch(error => {
@@ -138,14 +143,14 @@ const Materias = () => {
       >
         <td>{materia.nombre}</td>
         <td>{materia.carrera}</td>
+        <td>{materia.curso}</td>
       </tr>
     ));
   };
 
   const limpiar = () => {
     setIsEditing(false);
-    setFormData({ id: "", nombre: "", carrera: "" });
-    setSelectedCarrera("");
+    setFormData(defaultFormData);
   };
 
   const handleCloseModal = () => {
@@ -178,6 +183,7 @@ const Materias = () => {
   const handleRefresh = () => {
     setFiltroNombre("");
     setFiltroCarrera("");
+    setFiltroCurso("");
     getMaterias();
   };
 
@@ -187,8 +193,8 @@ const Materias = () => {
         <div className="header">
           <h2>Materias</h2>
         </div>
-        <div className="row mb-0 mt-3 justify-content-between">
-          <div className="col d-flex align-items-center">
+        <div className="row mb-0 mt-3">
+          <div className="col d-flex align-items-center justify-content-between">
             <label className="d-flex align-items-center fw-bold me-4">
               Filtros:
             </label>
@@ -219,14 +225,35 @@ const Materias = () => {
               </select>
             </div>
             <div className="col-auto d-flex align-items-center ms-4">
+              <label className="me-2">Carrera:</label>
+              <select
+                className="form-select"
+                value={filtroCurso}
+                onChange={e => setFiltroCurso(e.target.value)}
+              >
+                <option value="">Todas</option>
+                <option value="Primero">Primero</option>
+                <option value="Segundo">Segundo</option>
+                <option value="Tercero">Tercero</option>
+                <option value="Cuarto">Cuarto</option>
+                <option value="Quinto">Quinto</option>
+                <option value="Sexto">Sexto</option>
+                <option value="Séptimo">Séptimo</option>
+                <option value="Octavo">Octavo</option>
+                <option value="Noveno">Noveno</option>
+              </select>
+            </div>
+            <div className="col-auto d-flex align-items-center ms-4">
               <button className="btn" onClick={handleRefresh}>
                 <i className="fas fa-refresh"></i>
               </button>
             </div>
           </div>
+        </div>
+        <div className="row mb-0 mt-3 justify-content-end">
           <div className="col-auto">
             <button
-              className="btn"
+              className="btn btn-primary"
               onClick={() => {
                 setIsEditing(false);
                 handleShowModal();
@@ -238,19 +265,20 @@ const Materias = () => {
           </div>
         </div>
 
-        <div className="mt-4">
-          <table className="table table-bordered table-hover mt-4 caption-top">
+        <div className="mt-0">
+          <table className="table table-bordered table-hover mt-0 caption-top">
             <caption>Seleccione una fila para ver sus opciones</caption>
             <thead>
               <tr>
                 <th>Nombre</th>
                 <th>Carrera</th>
+                <th>Curso</th>
               </tr>
             </thead>
             <tbody>
               {currentPageData.length === 0 ? (
                 <tr>
-                  <td colSpan="2">No hay resultados</td>
+                  <td colSpan="3">No hay resultados</td>
                 </tr>
               ) : (
                 cargarMaterias()
@@ -325,16 +353,15 @@ const Materias = () => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form id="form-reservas">
+          <Form>
             <div className="row">
               <div className="col-12">
                 <Form.Group className="form-group">
                   <Form.Label htmlFor="nombre">Nombre:</Form.Label>
                   <Form.Control
+                    required
                     type="text"
-                    id="nombre"
                     className="form-control"
-                    name="nombre"
                     placeholder="Ingrese el nombre de la materia"
                     value={formData.nombre}
                     onChange={e =>
@@ -347,7 +374,7 @@ const Materias = () => {
                 <Form.Group className="form-group">
                   <Form.Label htmlFor="carrera">Carrera:</Form.Label>
                   <Form.Select
-                    id="carrera"
+                    required
                     className="form-control"
                     value={selectedCarrera}
                     ref={carreraRef}
@@ -362,12 +389,37 @@ const Materias = () => {
                   </Form.Select>
                 </Form.Group>
               </div>
-            </div>
 
+              <div className="col-12">
+                <Form.Group className="form-group">
+                  <Form.Label htmlFor="curso">Curso:</Form.Label>
+                  <Form.Select
+                    required
+                    className="form-control"
+                    value={formData.curso}
+                    ref={carreraRef}
+                    onChange={e =>
+                      setFormData({ ...formData, curso: e.target.value })
+                    }
+                  >
+                    <option value="">Seleccione una opción</option>
+                    <option value="Primero">Primero</option>
+                    <option value="Segundo">Segundo</option>
+                    <option value="Tercero">Tercero</option>
+                    <option value="Cuarto">Cuarto</option>
+                    <option value="Quinto">Quinto</option>
+                    <option value="Sexto">Sexto</option>
+                    <option value="Séptimo">Séptimo</option>
+                    <option value="Octavo">Octavo</option>
+                    <option value="Noveno">Noveno</option>
+                  </Form.Select>
+                </Form.Group>
+              </div>
+            </div>
             <div className="button-group mt-4 text-center">
               {!isEditing ? (
                 <Button
-                  type="button"
+                  type="submit"
                   className="btn btn-custom"
                   onClick={() => guardarMateria()}
                 >
