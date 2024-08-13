@@ -285,8 +285,8 @@ const Docentes = () => {
             <caption>Seleccione una fila para ver sus opciones</caption>
             <thead>
               <tr>
-                <th style={{ width: "20%" }}>Cédula:</th>
-                <th style={{ width: "80%" }}>Nombres</th>
+                <th style={{ width: "20%" }}>Cédula</th>
+                <th style={{ width: "80%" }}>Nombre</th>
               </tr>
             </thead>
             <tbody>
