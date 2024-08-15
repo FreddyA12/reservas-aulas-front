@@ -63,7 +63,7 @@ const Menu = () => {
             </Nav.Item>
             <Nav.Item>
               <Nav.Link onClick={() => navigate("espacios")}>
-                <i className="fas fa-chalkboard-teacher me-2"></i>Espacios
+                <i className="fas fa-door-open me-2"></i>Espacios
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>

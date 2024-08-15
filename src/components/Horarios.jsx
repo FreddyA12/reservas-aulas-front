@@ -197,7 +197,6 @@ const Horarios = () => {
 
       setMaterias(materiasopciones);
     } catch (error) {
-      oops("Error al cargar materias.");
       setMaterias([]);
     }
   };

@@ -240,8 +240,8 @@ const Espacios = () => {
       <div className="header">
         <h2>Espacios</h2>
       </div>
-      <div className="row mb-0 mt-1 justify-content-between">
-        <div className="col d-flex align-items-center">
+      <div className="row mb-0 mt-1 ">
+        <div className="col d-flex align-items-center ">
           <label className="d-flex align-items-center fw-bold me-4">
             Filtros:
           </label>
