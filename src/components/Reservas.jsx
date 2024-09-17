@@ -577,7 +577,6 @@ const LabReservations = () => {
       !responsible.cedula ||
       !responsible.nombre ||
       !responsible.apellido ||
-      !responsible.telefono ||
       !responsible.tipo
     ) {
       info("Existe algún campo vacío o no has buscado un responsable.");

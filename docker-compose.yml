@@ -3,7 +3,7 @@ version: '3.8'
 services:
   reservas-aulas-front:
     image: reservas-aulas-front:latest
-    container_name: reservas-aulas-front
+    container_name: reservas_aulas_front_v2
     build:
       context: .
       dockerfile: Dockerfile
